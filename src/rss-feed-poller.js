@@ -40,7 +40,6 @@ export default function getFeed(options) {
     const latestItem = feedResult.getItem(0);
     if (latestItem) {
       const itemPostedTime = latestItem.getDate().getTime();
-
       if ((itemPostedTime >= lastTime) && (lastTitle != latestItem.getTitle())) {
         lastTitle = latestItem.getTitle();
         options.robot.logger.debug(`Found update for: ${latestItem.getTitle()}`);
