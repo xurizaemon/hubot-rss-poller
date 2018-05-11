@@ -38,21 +38,23 @@ export default function getFeed(options) {
     const latestItem = feedResult.getItem(0);
     if (latestItem) {
       const itemPostedTime = latestItem.getDate();
-      options.robot.logger.debug(`${itemPostedTime}`);
       if ((itemPostedTime >= lastTime) && (lastTitle != latestItem.getTitle())) {
         lastTitle = latestItem.getTitle();
         options.robot.logger.debug(`Found update for: ${latestItem.getTitle()}`);
+        if (typeof options.messageTemplate !== 'undefined') {
+          options.messageTemplate = '' + (options.alertPrefix || '') + latestItem.getTitle() + ' - ' + latestItem.getPermalink() + ('' + (options.alertSuffix || ''));
+        }
         const message = `${options.alertPrefix || ''}${latestItem.getTitle()} - ` +
           `${latestItem.getPermalink()}${options.alertSuffix || ''}`;
         if (Array.isArray(options.room)) {
           options.room.map((x) => options.robot.messageRoom(
               x,
-              message
+              eval(options.messageTemplate)
             ));
         } else {
           options.robot.messageRoom(
             options.room,
-            message
+            eval(options.messageTemplate)
           );
         }
       }
