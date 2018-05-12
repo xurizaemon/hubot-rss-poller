@@ -68,7 +68,6 @@ export default function getFeed(options) {
     options.robot.logger.info(`Starting feed poller for ${options.name}.`);
     setTimeout(() => {
       checkFeed();
-
       setInterval(checkFeed, options.pingInterval * 1000);
     }, (options.initialDelay || 3) * 1000);
   }
