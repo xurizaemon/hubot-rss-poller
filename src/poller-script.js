@@ -4,7 +4,6 @@ import loadFile from './config-parser.js';
 export default async function rssPoller(robot) {
   try {
     const config = await loadFile(process.env.HUBOT_RSS_CONFIG_FILE || 'hubotrssconfig.json');
-
     if (!process.env.HUBOT_RSS_FEED_DISABLE) {
       JSON.parse(config).feeds.map(x => getFeed({ ...x, robot }))
         .forEach(x => x.startFeed());

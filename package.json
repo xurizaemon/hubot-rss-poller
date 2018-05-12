@@ -2,15 +2,21 @@
   "name": "hubot-rss-poller",
   "version": "2.1.0",
   "description": "A simple poller for RSS feeds in hubot.  It will alert to chat on updates to the feed polled on a regular interval.",
-  "main": "lib/index.js",
+  "main": "src/index.js",
   "scripts": {
     "build": "rm -rf lib && babel src --out-dir lib",
     "lint": "eslint ./",
     "test": "npm run lint && mocha",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "dev": "watch 'npm run build' src/"
+  },
+  "watch": {
+    "test": "src/*.js",
+    "build": "src/*.js"
   },
   "files": [
-    "lib"
+    "lib",
+    "src"
   ],
   "author": "Anson Wayman <kanoyugoro@gmail.com>",
   "homepage": "https://github.com/KanoYugoro/hubot-rss-poller",
@@ -46,6 +52,7 @@
     "eslint": "^2.6.0",
     "eslint-config-airbnb": "^7.0.0",
     "eslint-plugin-mocha": "^2.0.0",
-    "mocha": "^5.1.1"
+    "mocha": "^5.1.1",
+    "watch": "^1.0.2"
   }
 }
